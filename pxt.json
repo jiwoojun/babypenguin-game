@@ -2,7 +2,9 @@
     "name": "babypenguin game",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "storyboard": "*",
+        "color-coded-tilemap": "*"
     },
     "files": [
         "main.blocks",

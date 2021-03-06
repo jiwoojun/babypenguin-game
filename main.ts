@@ -1,4 +1,35 @@
-let Babypenguin = sprites.create(img`
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile32`)) {
+        tiles.setTileAt(tiles.getTileLocation(1, 14), assets.tile`myTile28`)
+    } else if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile28`)) {
+        info.changeScoreBy(1)
+    } else {
+    	
+    }
+})
+function levels () {
+    scene.setTile(1, img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, false)
+    scene.setTile(5, assets.tile`myTile28`, false)
+}
+let Babypenguin: Sprite = null
+Babypenguin = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . d d f f f f d d . . . . 
     . . . d d d d d d d d d d . . . 
@@ -17,6 +48,7 @@ let Babypenguin = sprites.create(img`
     . . . . f . f . . f . f . . . . 
     `, SpriteKind.Player)
 controller.moveSprite(Babypenguin)
+info.setScore(0)
 Babypenguin.setStayInScreen(true)
-tiles.setTilemap(tilemap`level1`)
 scene.cameraFollowSprite(Babypenguin)
+tiles.setTilemap(tilemap`level1`)

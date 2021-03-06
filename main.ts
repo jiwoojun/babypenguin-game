@@ -2,31 +2,17 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile32`)) {
         tiles.setTileAt(tiles.getTileLocation(1, 14), assets.tile`myTile28`)
     } else if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile28`)) {
-        info.changeScoreBy(1)
+        story.spriteSayText(Babypenguin, "\"Key is hidden under a secret tile 5 steps down and 5 step right from washbasin\"")
+    } else if (Babypenguin.tileKindAt(TileDirection.Right, assets.tile`myTile26`)) {
+        tiles.setTileAt(tiles.getTileLocation(10, 5), assets.tile`myTile25`)
+    } else if (false) {
+    	
     } else {
     	
     }
 })
 function levels () {
-    scene.setTile(1, img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, false)
-    scene.setTile(5, assets.tile`myTile28`, false)
+	
 }
 let Babypenguin: Sprite = null
 Babypenguin = sprites.create(img`

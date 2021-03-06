@@ -4,7 +4,8 @@
     "dependencies": {
         "device": "*",
         "storyboard": "*",
-        "color-coded-tilemap": "*"
+        "color-coded-tilemap": "*",
+        "story": "github:riknoll/arcade-story#v1.3.1"
     },
     "files": [
         "main.blocks",

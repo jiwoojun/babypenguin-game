@@ -1,3 +1,6 @@
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+	
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile32`)) {
         tiles.setTileAt(tiles.getTileLocation(1, 14), assets.tile`myTile28`)

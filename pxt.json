@@ -5,7 +5,8 @@
         "device": "*",
         "storyboard": "*",
         "color-coded-tilemap": "*",
-        "story": "github:riknoll/arcade-story#v1.3.1"
+        "story": "github:riknoll/arcade-story#v1.3.1",
+        "tilemaps": "github:microsoft/pxt-tilemaps#v1.11.0"
     },
     "files": [
         "main.blocks",

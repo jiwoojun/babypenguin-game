@@ -5,8 +5,10 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventoryVisible) {
         BHandTool = item[selectedIndex]
     } else {
-        if (sprites.readDataString(BHandTool, "name") == "hint") {
-            story.spriteSayText(Babypenguin, "The secret pin number for the door is 1 7 2")
+        if (!(keyPadVisible)) {
+            if (sprites.readDataString(BHandTool, "name") == "hint") {
+                story.spriteSayText(Babypenguin, "The secret pin number for the door is a177ji")
+            }
         }
     }
 })
@@ -20,14 +22,28 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     } else if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile28`)) {
         story.spriteSayText(Babypenguin, "\"Key is hidden under a secret tile 5 steps down and 5 step right from washbasin\"")
     } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile26`)) {
-        music.magicWand.play()
-        makeItem(assets.tile`myTile29`, "key", 1, false)
-        story.spriteSayText(Babypenguin, "Hey! I found a key*")
+        for (let value of item) {
+            if (sprites.readDataString(value, "name") == "key") {
+                existItem = true
+            }
+        }
+        if (!(existItem)) {
+            music.magicWand.play()
+            makeItem(assets.tile`myTile29`, "key", 1, existItem)
+            story.spriteSayText(Babypenguin, "Hey! I found a key*")
+        }
     } else if (Babypenguin.tileKindAt(TileDirection.Bottom, assets.tile`myTile30`)) {
         if (sprites.readDataString(BHandTool, "name") == "key") {
-            music.magicWand.play()
-            story.spriteSayText(Babypenguin, "I found the letter!")
-            makeItem(assets.tile`myTile28`, "hint", 1, false)
+            for (let value of item) {
+                if (sprites.readDataString(value, "name") == "hint") {
+                    existItem = true
+                }
+            }
+            if (!(existItem)) {
+                music.magicWand.play()
+                makeItem(assets.tile`myTile28`, "hint", 1, false)
+                story.spriteSayText(Babypenguin, "I found the letter!")
+            }
         } else {
             story.spriteSayText(Babypenguin, "Where is the key??")
         }
@@ -54,10 +70,12 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     selectedIndex = Math.max(selectedIndex - 1, 0)
 })
 spriteutils.createRenderable(99, function (screen2) {
-    screen2.fillRect(2, 98, 20, 20, 8)
-    screen2.drawRect(2, 98, 20, 20, 3)
-    if (BHandTool) {
-        spriteutils.drawTransparentImage(BHandTool.image, screen2, 4, 100)
+    if (Bhandtoolon) {
+        screen2.fillRect(2, 98, 20, 20, 8)
+        screen2.drawRect(2, 98, 20, 20, 3)
+        if (BHandTool) {
+            spriteutils.drawTransparentImage(BHandTool.image, screen2, 4, 100)
+        }
     }
 })
 function closeKeyPad () {
@@ -119,35 +137,23 @@ spriteutils.createRenderable(100, function (screen2) {
             `, screen2, 14 + selectedIndex * 20 - 2, item_top - 2)
     }
     if (keyPadVisible) {
-        let index = 0
-        screen2.fillRect(10, 10, 140, 100, 9)
-        screen2.drawRect(10, 10, 140, 100, 12)
-        images.print(screen2, "KeyPad", 14, 14, 15)
-        spriteutils.drawTransparentImage(img`
-            77777777777777777777
-            77777777777777777777
-            77777777777777777777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            777..............777
-            77777777777777777777
-            77777777777777777777
-            77777777777777777777
-            `, screen2, 14 + selectedIndex * 20 - 2, item_top - 2)
-        spriteutils.drawTransparentImage(item[index].image, screen2, 14 + index * 20, item_top)
+        keyPadNumber = game.askForString("crack this code...it might be hard!")
+        if (keyPadVisible) {
+            closeKeyPad()
+        } else {
+            openKeyPad()
+        }
+        if (keyPadNumber == "a177ji") {
+            game.splash("you did it! you unlocked the door! congratulations!")
+            game.over(true)
+        }
+        if (!(keyPadNumber == "a177ji")) {
+            game.splash("nice try! so next time, try hard enough to unlock the door!")
+            game.over(false)
+        }
     }
 })
+let keyPadNumber = ""
 let item_top = 0
 let selectedKey = 0
 let newItem: Sprite = null
@@ -155,8 +161,27 @@ let keyPadVisible = false
 let selectedIndex = 0
 let BHandTool: Sprite = null
 let inventoryVisible = false
+let existItem = false
 let item: Sprite[] = []
 let Babypenguin: Sprite = null
+let Bhandtoolon = false
+Bhandtoolon = false
+game.setDialogCursor(img`
+    111.........111..1...1.1111...11.........11................1
+    1..1........1..1.1...1.1...1.1..1.......1..1...............1
+    111...111...111..1...1.1...1.1..1.......1..1.......1.......1
+    1..1.1...1..1..1..111..1111...11..1......11..1...1...1.....1
+    1..1.1...1..1..1.....1.1.....1.....111.....1.1...1.1..111..1
+    1..1.1...1..1..1.....1.1.....1....1...1....1.1...1.1.1...1.1
+    1..1..111.1.1..1.....1.1......111.1...1....1..111..1.1...1..
+    111.........111..1111..1..........1...1.111..1.....1.1...1.1
+    `)
+game.splash("where am I?")
+game.splash("oh no!")
+game.splash("I'm locked in this room!")
+game.splash("SOMEBODY HELP ME!!!!")
+game.splash("I must do this!")
+Bhandtoolon = true
 Babypenguin = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . d d f f f f d d . . . . 
@@ -176,7 +201,6 @@ Babypenguin = sprites.create(img`
     . . . . f . f . . f . f . . . . 
     `, SpriteKind.Player)
 controller.moveSprite(Babypenguin)
-info.setScore(0)
 Babypenguin.setStayInScreen(true)
 scene.cameraFollowSprite(Babypenguin)
 tiles.setTilemap(tilemap`level1`)
@@ -223,6 +247,7 @@ Babypenguin,
 true
 )
 item = []
+existItem = false
 makeItem(img`
     . . . . . 9 9 9 1 9 9 . . . . . 
     . . . . 9 9 9 9 1 9 9 9 . . . . 

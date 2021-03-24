@@ -1,6 +1,22 @@
 namespace SpriteKind {
     export const tools = SpriteKind.create()
+    export const NPC = SpriteKind.create()
 }
+/**
+ * items:
+ * 
+ * key,
+ * 
+ * hint,
+ * 
+ * diamond,
+ * 
+ * coin,
+ * 
+ * bow and arrow,
+ * 
+ * torch.
+ */
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventoryVisible) {
         BHandTool = item[selectedIndex]
@@ -53,6 +69,10 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         } else {
             openKeyPad()
         }
+    } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile5`)) {
+        ghostAppearTime()
+    } else if (false) {
+    	
     }
 })
 function makeItem (image2: Image, name: string, amount: number, dontAddToInventory: boolean) {
@@ -65,6 +85,100 @@ function makeItem (image2: Image, name: string, amount: number, dontAddToInvento
         item.push(newItem)
     }
     return newItem
+}
+function makingItems () {
+    item = []
+    existItem = false
+    makeItem(img`
+        . . . . . 9 9 9 1 9 9 . . . . . 
+        . . . . 9 9 9 9 1 9 9 9 . . . . 
+        . . . 1 9 9 9 9 1 9 9 9 1 . . . 
+        . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
+        . 1 1 1 1 9 9 9 1 9 9 9 1 1 1 . 
+        . 9 9 1 1 9 9 9 1 9 9 1 1 9 9 . 
+        . 9 9 1 9 1 9 9 1 1 1 9 1 9 9 . 
+        . 9 9 1 9 9 1 1 1 9 9 9 1 9 9 . 
+        . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
+        . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
+        . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
+        . . . 1 9 9 9 9 1 9 9 9 1 . . . 
+        . . . . 9 9 9 9 1 9 9 9 . . . . 
+        . . . . . 9 9 9 1 9 9 . . . . . 
+        . . . . . . 9 9 1 9 . . . . . . 
+        . . . . . . . 9 1 . . . . . . . 
+        `, "diamond", 1, false)
+    makeItem(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . 5 5 5 5 5 5 1 . . . . . 
+        . . . 5 5 5 5 f 5 5 5 1 . . . . 
+        . . 5 5 5 5 f f f 5 5 5 1 . . . 
+        . . 5 5 5 f 5 f 5 5 5 5 1 . . . 
+        . . 5 5 5 5 f f 5 5 5 5 1 . . . 
+        . . 5 5 5 5 5 f f 5 5 5 1 . . . 
+        . . 5 5 5 f f f 5 5 5 5 1 . . . 
+        . . 5 5 5 5 5 f 5 5 5 5 1 . . . 
+        . . 5 5 5 5 5 5 5 5 5 5 1 . . . 
+        . . . 5 5 5 5 5 5 5 5 1 . . . . 
+        . . . . 5 5 5 5 5 5 5 . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, "coin", 1, false)
+    makeItem(img`
+        . 9 . . . . . . . . . . . . . . 
+        6 9 9 . . . . . . . . . . . . . 
+        6 9 9 . e e e . . . . . . . . . 
+        6 6 9 . f . e e . . . . . . . . 
+        . 2 . . f . . e e e . . . . . . 
+        . 2 . . f . . . . e e . . . . . 
+        . 2 . . f . . . . . e e . . . . 
+        . 2 . . f . . . . . . e . . . . 
+        . 2 . . f . . . . . . e . . . . 
+        . 2 . . f . . . . . e e . . . . 
+        . 2 . . f . . . . e e . . . . . 
+        . 2 . . f . . e e e . . . . . . 
+        . 2 . . f . e e . . . . . . . . 
+        . 2 . . e e e . . . . . . . . . 
+        . 2 . . . . . . . . . . . . . . 
+        . 2 . . . . . . . . . . . . . . 
+        `, "bow and arrow", 1, false)
+    makeItem(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . 5 . . 1 
+        . . . . . . . . . . . 5 5 . 1 1 
+        . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
+        d 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
+        . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
+        . . . . . . . . . . . 5 5 . 1 1 
+        . . . . . . . . . . . . 5 . . 1 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, "torch", 1, false)
+}
+function intro () {
+    Bhandtoolon = false
+    game.setDialogCursor(img`
+        111.........111..1...1.1111...11.........11................1
+        1..1........1..1.1...1.1...1.1..1.......1..1...............1
+        111...111...111..1...1.1...1.1..1.......1..1.......1.......1
+        1..1.1...1..1..1..111..1111...11..1......11..1...1...1.....1
+        1..1.1...1..1..1.....1.1.....1.....111.....1.1...1.1..111..1
+        1..1.1...1..1..1.....1.1.....1....1...1....1.1...1.1.1...1.1
+        1..1..111.1.1..1.....1.1......111.1...1....1..111..1.1...1..
+        111.........111..1111..1..........1...1.111..1.....1.1...1.1
+        `)
+    game.splash("where am I?")
+    game.splash("oh no!")
+    game.splash("I'm locked in this room!")
+    game.splash("SOMEBODY HELP ME!!!!")
+    game.splash("I must do this!")
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     selectedIndex = Math.max(selectedIndex - 1, 0)
@@ -82,8 +196,78 @@ function closeKeyPad () {
     keyPadVisible = false
     controller.moveSprite(Babypenguin)
 }
+function makePlayer () {
+    Bhandtoolon = true
+    Babypenguin = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . d d f f f f d d . . . . 
+        . . . d d d d d d d d d d . . . 
+        . . . d d 1 1 1 d 1 1 1 d . . . 
+        . . . d d 1 f f 1 f f 1 d . . . 
+        . . . d d 1 1 1 1 1 1 1 d . . . 
+        . . . f d 1 1 f f f 1 1 f . . . 
+        . . . f d d 1 1 f 1 1 d f . . . 
+        . . . f d d d d d d d d f . . . 
+        . . . f d 1 1 1 1 1 1 d f . . . 
+        . . . d d 1 f 1 f f 1 d d . . . 
+        . . . d d 1 1 1 1 1 1 d d . . . 
+        . . . d d 1 f f 1 f 1 d d . . . 
+        . . . . d d 1 1 1 1 d d . . . . 
+        . . . . f f f . . f f f . . . . 
+        . . . . f . f . . f . f . . . . 
+        `, SpriteKind.Player)
+    controller.moveSprite(Babypenguin)
+    Babypenguin.setStayInScreen(true)
+    scene.cameraFollowSprite(Babypenguin)
+    tiles.setTilemap(tilemap`level1`)
+    tiles.placeOnRandomTile(Babypenguin, assets.tile`myTile34`)
+    tiles.coverAllTiles(assets.tile`myTile34`, assets.tile`myTile5`)
+    animation.runImageAnimation(
+    Babypenguin,
+    [img`
+        . . . . . . . . . . . . . . . . 
+        . . . . d d f f f f d d . . . . 
+        . . . d d d d d d d d d d . . . 
+        . . . d d 1 1 1 d 1 1 1 d . . . 
+        . . . d d 1 f f 1 f f 1 d . . . 
+        . . . d d 1 1 1 1 1 1 1 d . . . 
+        . . . f d 1 1 f f f 1 1 f . . . 
+        . . . f d d 1 1 f 1 1 d f . . . 
+        . . . f d d d d d d d d f . . . 
+        . . . f d 1 1 1 1 1 1 d f . . . 
+        . . . d d 1 f 1 f f 1 d d . . . 
+        . . . d d 1 1 1 1 1 1 d d . . . 
+        . . . d d 1 f f 1 f 1 d d . . . 
+        . . . . d d 1 1 1 1 d d . . . . 
+        . . . . f f f . . f f f . . . . 
+        . . . . . . f . . f . f . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . d d f f f f d d . . . . 
+        . . . d d d d d d d d d d . . . 
+        . . . d d 1 1 1 d 1 1 1 d . . . 
+        . . . d d 1 f f 1 f f 1 d . . . 
+        . . . d d 1 1 1 1 1 1 1 d . . . 
+        . . . f d 1 1 f f f 1 1 f . . . 
+        . . . f d d 1 1 f 1 1 d f . . . 
+        . . . f d d d d d d d d f . . . 
+        . . . f d 1 1 1 1 1 1 d f . . . 
+        . . . d d 1 f 1 f f 1 d d . . . 
+        . . . d d 1 1 1 1 1 1 d d . . . 
+        . . . d d 1 f f 1 f 1 d d . . . 
+        . . . . d d 1 1 1 1 d d . . . . 
+        . . . . f f f . . f f f . . . . 
+        . . . . f . f . . f . . . . . . 
+        `],
+    500,
+    true
+    )
+}
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     selectedIndex = Math.min(selectedIndex + 1, item.length - 1)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
+	
 })
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventoryVisible) {
@@ -92,6 +276,53 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         openInventory()
     }
 })
+function ghostAppearTime () {
+    color.startFade(color.originalPalette, color.GrayScale, 500)
+    story.queueStoryPart(function () {
+        story.spriteSayText(Babypenguin, "oh, is this a dream or not?")
+    })
+    pause(1000)
+    ghost = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+        . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+        . 1 1 f f f 1 1 1 f f f 1 1 1 . 
+        . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+        . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+        . 1 1 1 1 1 f f f f 1 1 1 1 1 . 
+        . 1 1 1 1 f f f f f f 1 1 1 1 . 
+        . 1 1 1 1 f f f f f f 1 1 1 1 . 
+        . 1 1 1 1 f f f f f f 1 1 1 1 . 
+        . 1 1 1 1 1 f f f f 1 1 1 1 1 . 
+        . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+        . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+        . 1 . 1 . 1 . 1 . 1 . 1 . . 1 . 
+        . 1 . 1 . 1 . 1 . 1 . 1 . . 1 . 
+        `, SpriteKind.NPC)
+    tiles.placeOnRandomTile(ghost, assets.tile`myTile26`)
+    story.queueStoryPart(function () {
+        story.spriteSayText(ghost, "I am your NPC.")
+    })
+    story.queueStoryPart(function () {
+        story.spriteSayText(ghost, "I only appear at night.")
+    })
+    story.queueStoryPart(function () {
+        story.spriteSayText(ghost, "Why I'm here is...")
+    })
+    story.queueStoryPart(function () {
+        story.spriteSayText(ghost, "when you give me a coin,")
+    })
+    story.queueStoryPart(function () {
+        story.spriteSayText(ghost, "then I will give you a item")
+    })
+    story.queueStoryPart(function () {
+        story.spriteSayText(ghost, "which is a bow and arrow.")
+    })
+    pause(20000)
+    color.startFade(color.GrayScale, color.originalPalette)
+    ghost.destroy()
+}
 function openInventory () {
     inventoryVisible = true
     controller.moveSprite(Babypenguin, 0, 0)
@@ -156,167 +387,16 @@ spriteutils.createRenderable(100, function (screen2) {
 let keyPadNumber = ""
 let item_top = 0
 let selectedKey = 0
+let ghost: Sprite = null
+let Bhandtoolon = false
 let newItem: Sprite = null
+let existItem = false
+let Babypenguin: Sprite = null
 let keyPadVisible = false
 let selectedIndex = 0
+let item: Sprite[] = []
 let BHandTool: Sprite = null
 let inventoryVisible = false
-let existItem = false
-let item: Sprite[] = []
-let Babypenguin: Sprite = null
-let Bhandtoolon = false
-Bhandtoolon = false
-game.setDialogCursor(img`
-    111.........111..1...1.1111...11.........11................1
-    1..1........1..1.1...1.1...1.1..1.......1..1...............1
-    111...111...111..1...1.1...1.1..1.......1..1.......1.......1
-    1..1.1...1..1..1..111..1111...11..1......11..1...1...1.....1
-    1..1.1...1..1..1.....1.1.....1.....111.....1.1...1.1..111..1
-    1..1.1...1..1..1.....1.1.....1....1...1....1.1...1.1.1...1.1
-    1..1..111.1.1..1.....1.1......111.1...1....1..111..1.1...1..
-    111.........111..1111..1..........1...1.111..1.....1.1...1.1
-    `)
-game.splash("where am I?")
-game.splash("oh no!")
-game.splash("I'm locked in this room!")
-game.splash("SOMEBODY HELP ME!!!!")
-game.splash("I must do this!")
-Bhandtoolon = true
-Babypenguin = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . d d f f f f d d . . . . 
-    . . . d d d d d d d d d d . . . 
-    . . . d d 1 1 1 d 1 1 1 d . . . 
-    . . . d d 1 f f 1 f f 1 d . . . 
-    . . . d d 1 1 1 1 1 1 1 d . . . 
-    . . . f d 1 1 f f f 1 1 f . . . 
-    . . . f d d 1 1 f 1 1 d f . . . 
-    . . . f d d d d d d d d f . . . 
-    . . . f d 1 1 1 1 1 1 d f . . . 
-    . . . d d 1 f 1 f f 1 d d . . . 
-    . . . d d 1 1 1 1 1 1 d d . . . 
-    . . . d d 1 f f 1 f 1 d d . . . 
-    . . . . d d 1 1 1 1 d d . . . . 
-    . . . . f f f . . f f f . . . . 
-    . . . . f . f . . f . f . . . . 
-    `, SpriteKind.Player)
-controller.moveSprite(Babypenguin)
-Babypenguin.setStayInScreen(true)
-scene.cameraFollowSprite(Babypenguin)
-tiles.setTilemap(tilemap`level1`)
-tiles.placeOnRandomTile(Babypenguin, assets.tile`myTile34`)
-tiles.coverAllTiles(assets.tile`myTile34`, assets.tile`myTile5`)
-animation.runImageAnimation(
-Babypenguin,
-[img`
-    . . . . . . . . . . . . . . . . 
-    . . . . d d f f f f d d . . . . 
-    . . . d d d d d d d d d d . . . 
-    . . . d d 1 1 1 d 1 1 1 d . . . 
-    . . . d d 1 f f 1 f f 1 d . . . 
-    . . . d d 1 1 1 1 1 1 1 d . . . 
-    . . . f d 1 1 f f f 1 1 f . . . 
-    . . . f d d 1 1 f 1 1 d f . . . 
-    . . . f d d d d d d d d f . . . 
-    . . . f d 1 1 1 1 1 1 d f . . . 
-    . . . d d 1 f 1 f f 1 d d . . . 
-    . . . d d 1 1 1 1 1 1 d d . . . 
-    . . . d d 1 f f 1 f 1 d d . . . 
-    . . . . d d 1 1 1 1 d d . . . . 
-    . . . . f f f . . f f f . . . . 
-    . . . . . . f . . f . f . . . . 
-    `,img`
-    . . . . . . . . . . . . . . . . 
-    . . . . d d f f f f d d . . . . 
-    . . . d d d d d d d d d d . . . 
-    . . . d d 1 1 1 d 1 1 1 d . . . 
-    . . . d d 1 f f 1 f f 1 d . . . 
-    . . . d d 1 1 1 1 1 1 1 d . . . 
-    . . . f d 1 1 f f f 1 1 f . . . 
-    . . . f d d 1 1 f 1 1 d f . . . 
-    . . . f d d d d d d d d f . . . 
-    . . . f d 1 1 1 1 1 1 d f . . . 
-    . . . d d 1 f 1 f f 1 d d . . . 
-    . . . d d 1 1 1 1 1 1 d d . . . 
-    . . . d d 1 f f 1 f 1 d d . . . 
-    . . . . d d 1 1 1 1 d d . . . . 
-    . . . . f f f . . f f f . . . . 
-    . . . . f . f . . f . . . . . . 
-    `],
-500,
-true
-)
-item = []
-existItem = false
-makeItem(img`
-    . . . . . 9 9 9 1 9 9 . . . . . 
-    . . . . 9 9 9 9 1 9 9 9 . . . . 
-    . . . 1 9 9 9 9 1 9 9 9 1 . . . 
-    . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
-    . 1 1 1 1 9 9 9 1 9 9 9 1 1 1 . 
-    . 9 9 1 1 9 9 9 1 9 9 1 1 9 9 . 
-    . 9 9 1 9 1 9 9 1 1 1 9 1 9 9 . 
-    . 9 9 1 9 9 1 1 1 9 9 9 1 9 9 . 
-    . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
-    . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
-    . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
-    . . . 1 9 9 9 9 1 9 9 9 1 . . . 
-    . . . . 9 9 9 9 1 9 9 9 . . . . 
-    . . . . . 9 9 9 1 9 9 . . . . . 
-    . . . . . . 9 9 1 9 . . . . . . 
-    . . . . . . . 9 1 . . . . . . . 
-    `, "diamond", 1, false)
-makeItem(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . 5 5 5 5 5 5 1 . . . . . 
-    . . . 5 5 5 5 f 5 5 5 1 . . . . 
-    . . 5 5 5 5 f f f 5 5 5 1 . . . 
-    . . 5 5 5 f 5 f 5 5 5 5 1 . . . 
-    . . 5 5 5 5 f f 5 5 5 5 1 . . . 
-    . . 5 5 5 5 5 f f 5 5 5 1 . . . 
-    . . 5 5 5 f f f 5 5 5 5 1 . . . 
-    . . 5 5 5 5 5 f 5 5 5 5 1 . . . 
-    . . 5 5 5 5 5 5 5 5 5 5 1 . . . 
-    . . . 5 5 5 5 5 5 5 5 1 . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, "coin", 1, false)
-makeItem(img`
-    . 9 . . . . . . . . . . . . . . 
-    6 9 9 . . . . . . . . . . . . . 
-    6 9 9 . e e e . . . . . . . . . 
-    6 6 9 . f . e e . . . . . . . . 
-    . 2 . . f . . e e e . . . . . . 
-    . 2 . . f . . . . e e . . . . . 
-    . 2 . . f . . . . . e e . . . . 
-    . 2 . . f . . . . . . e . . . . 
-    . 2 . . f . . . . . . e . . . . 
-    . 2 . . f . . . . . e e . . . . 
-    . 2 . . f . . . . e e . . . . . 
-    . 2 . . f . . e e e . . . . . . 
-    . 2 . . f . e e . . . . . . . . 
-    . 2 . . e e e . . . . . . . . . 
-    . 2 . . . . . . . . . . . . . . 
-    . 2 . . . . . . . . . . . . . . 
-    `, "bow and arrow", 1, false)
-makeItem(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . 5 . . 1 
-    . . . . . . . . . . . 5 5 . 1 1 
-    . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
-    d 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
-    . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
-    . . . . . . . . . . . 5 5 . 1 1 
-    . . . . . . . . . . . . 5 . . 1 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, "torch", 1, false)
+intro()
+makePlayer()
+makingItems()

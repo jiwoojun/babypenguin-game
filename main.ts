@@ -2,21 +2,19 @@ namespace SpriteKind {
     export const tools = SpriteKind.create()
     export const NPC = SpriteKind.create()
 }
-/**
- * items:
- * 
- * key,
- * 
- * hint,
- * 
- * diamond,
- * 
- * coin,
- * 
- * bow and arrow,
- * 
- * torch.
- */
+// items:
+// 
+// key,
+// 
+// hint,
+// 
+// diamond,
+// 
+// coin,
+// 
+// bow and arrow,
+// 
+// torch.
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventoryVisible) {
         BHandTool = item[selectedIndex]
@@ -25,6 +23,15 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
             if (sprites.readDataString(BHandTool, "name") == "hint") {
                 story.spriteSayText(Babypenguin, "The secret pin number for the door is a177ji")
             }
+        }
+    }
+})
+spriteutils.createRenderable(99, function (screen2) {
+    if (Bhandtoolon) {
+        screen2.fillRect(2, 98, 20, 20, 8)
+        screen2.drawRect(2, 98, 20, 20, 3)
+        if (BHandTool) {
+            spriteutils.drawTransparentImage(BHandTool.image, screen2, 4, 100)
         }
     }
 })
@@ -50,8 +57,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     } else if (Babypenguin.tileKindAt(TileDirection.Bottom, assets.tile`myTile30`)) {
         if (sprites.readDataString(BHandTool, "name") == "key") {
-            for (let value of item) {
-                if (sprites.readDataString(value, "name") == "hint") {
+            for (let value2 of item) {
+                if (sprites.readDataString(value2, "name") == "hint") {
                     existItem = true
                 }
             }
@@ -183,15 +190,6 @@ function intro () {
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     selectedIndex = Math.max(selectedIndex - 1, 0)
 })
-spriteutils.createRenderable(99, function (screen2) {
-    if (Bhandtoolon) {
-        screen2.fillRect(2, 98, 20, 20, 8)
-        screen2.drawRect(2, 98, 20, 20, 3)
-        if (BHandTool) {
-            spriteutils.drawTransparentImage(BHandTool.image, screen2, 4, 100)
-        }
-    }
-})
 function closeKeyPad () {
     keyPadVisible = false
     controller.moveSprite(Babypenguin)
@@ -276,6 +274,57 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         openInventory()
     }
 })
+spriteutils.createRenderable(100, function (screen2) {
+    if (inventoryVisible) {
+        screen2.fillRect(10, 10, 140, 100, 11)
+        screen2.drawRect(10, 10, 140, 100, 15)
+        images.print(screen2, "INVENTORY", 14, 14, 15)
+images.print(screen2, sprites.readDataString(item[selectedIndex], "name"), 70, 14, 1)
+screen2.fillRect(14, 24, 132, 1, 15)
+        item_top = 28
+        for (let index = 0; index <= item.length - 1; index++) {
+            spriteutils.drawTransparentImage(item[index].image, screen2, 14 + index * 20, item_top)
+        }
+        spriteutils.drawTransparentImage(img`
+            ff.ff.ff.ff.ff.ff.ff
+            f..................f
+            ....................
+            f..................f
+            f..................f
+            ....................
+            f..................f
+            f..................f
+            ....................
+            f..................f
+            f..................f
+            ....................
+            f..................f
+            f..................f
+            ....................
+            f..................f
+            f..................f
+            ....................
+            f..................f
+            ff.ff.ff.ff.ff.ff.ff
+            `, screen2, 14 + selectedIndex * 20 - 2, item_top - 2)
+    }
+    if (keyPadVisible) {
+        keyPadNumber = game.askForString("crack this code...it might be hard!")
+        if (keyPadVisible) {
+            closeKeyPad()
+        } else {
+            openKeyPad()
+        }
+        if (keyPadNumber == "a177ji") {
+            game.splash("you did it! you unlocked the door! congratulations!")
+            game.over(true)
+        }
+        if (!(keyPadNumber == "a177ji")) {
+            game.splash("nice try! so next time, try hard enough to unlock the door!")
+            game.over(false)
+        }
+    }
+})
 function ghostAppearTime () {
     color.startFade(color.originalPalette, color.GrayScale, 500)
     story.queueStoryPart(function () {
@@ -333,70 +382,19 @@ function openKeyPad () {
     controller.moveSprite(Babypenguin, 0, 0)
     selectedKey = 0
 }
-spriteutils.createRenderable(100, function (screen2) {
-    if (inventoryVisible) {
-        screen2.fillRect(10, 10, 140, 100, 11)
-        screen2.drawRect(10, 10, 140, 100, 15)
-        images.print(screen2, "INVENTORY", 14, 14, 15)
-        images.print(screen2, sprites.readDataString(item[selectedIndex], "name"), 70, 14, 1)
-        screen2.fillRect(14, 24, 132, 1, 15)
-        item_top = 28
-        for (let index = 0; index <= item.length - 1; index++) {
-            spriteutils.drawTransparentImage(item[index].image, screen2, 14 + index * 20, item_top)
-        }
-        spriteutils.drawTransparentImage(img`
-            ff.ff.ff.ff.ff.ff.ff
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            ff.ff.ff.ff.ff.ff.ff
-            `, screen2, 14 + selectedIndex * 20 - 2, item_top - 2)
-    }
-    if (keyPadVisible) {
-        keyPadNumber = game.askForString("crack this code...it might be hard!")
-        if (keyPadVisible) {
-            closeKeyPad()
-        } else {
-            openKeyPad()
-        }
-        if (keyPadNumber == "a177ji") {
-            game.splash("you did it! you unlocked the door! congratulations!")
-            game.over(true)
-        }
-        if (!(keyPadNumber == "a177ji")) {
-            game.splash("nice try! so next time, try hard enough to unlock the door!")
-            game.over(false)
-        }
-    }
-})
-let keyPadNumber = ""
-let item_top = 0
 let selectedKey = 0
 let ghost: Sprite = null
-let Bhandtoolon = false
+let keyPadNumber = ""
 let newItem: Sprite = null
 let existItem = false
+let Bhandtoolon = false
 let Babypenguin: Sprite = null
 let keyPadVisible = false
-let selectedIndex = 0
-let item: Sprite[] = []
-let BHandTool: Sprite = null
 let inventoryVisible = false
+let BHandTool: Sprite = null
+let item: Sprite[] = []
+let selectedIndex = 0
+let item_top = 0
 intro()
 makePlayer()
 makingItems()

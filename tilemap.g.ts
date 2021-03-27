@@ -88,6 +88,10 @@ namespace myTiles {
     export const tile31 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
     export const tile30 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile43 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile45 = image.ofBuffer(hex``);
 
     helpers._registerFactory("tilemap", function(name: string) {
         switch(helpers.stringTrim(name)) {
@@ -211,6 +215,17 @@ namespace myTiles {
 22....2....2....2222
 22....2.........2222
 `, [myTiles.transparency16,myTiles.tile1,myTiles.tile4,myTiles.tile5,myTiles.tile2,myTiles.tile3,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile12,myTiles.tile13,myTiles.tile14,myTiles.tile15,myTiles.tile16,myTiles.tile17,myTiles.tile18,myTiles.tile19,myTiles.tile20,myTiles.tile21,myTiles.tile22,myTiles.tile23,myTiles.tile24,myTiles.tile25,myTiles.tile26,myTiles.tile34,myTiles.tile28,myTiles.tile32,myTiles.tile35,myTiles.tile36,myTiles.tile44,myTiles.tile41,myTiles.tile42,sprites.castle.tilePath5], TileScale.Sixteen);
+            case "level8":
+            case "level8":return tiles.createTilemap(hex`0a0008000101010101010101010101010101010101010101010101010101010101010102010201020102010202020202020202020202020202020202020202020202020202020202020202020202020202020202`, img`
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+`, [myTiles.transparency16,myTiles.tile43,myTiles.tile45], TileScale.Sixteen);
         }
         return null;
     })
@@ -304,6 +319,10 @@ namespace myTiles {
             case "tile31":return tile31;
             case "myTile28":
             case "tile30":return tile30;
+            case "myTile41":
+            case "tile43":return tile43;
+            case "myTile43":
+            case "tile45":return tile45;
         }
         return null;
     })

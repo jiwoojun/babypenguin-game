@@ -18,11 +18,9 @@ namespace SpriteKind {
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventoryVisible) {
         BHandTool = item[selectedIndex]
-    } else {
-        if (!(keyPadVisible)) {
-            if (sprites.readDataString(BHandTool, "name") == "hint") {
-                story.spriteSayText(Babypenguin, "The secret pin number for the door is a177ji")
-            }
+    } else if (!(keyPadVisible)) {
+        if (sprites.readDataString(BHandTool, "name") == "hint") {
+            story.spriteSayText(Babypenguin, "The secret pin number for the door is a177ji")
         }
     }
 })
@@ -78,7 +76,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile5`)) {
         ghostAppearTime()
-    } else if (false) {
+    } else if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile33`)) {
     	
     }
 })
@@ -264,9 +262,6 @@ function makePlayer () {
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     selectedIndex = Math.min(selectedIndex + 1, item.length - 1)
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
-	
-})
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventoryVisible) {
         closeInventory()
@@ -275,37 +270,40 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 spriteutils.createRenderable(100, function (screen2) {
-    if (inventoryVisible) {
+    let index: number;
+if (inventoryVisible) {
         screen2.fillRect(10, 10, 140, 100, 11)
         screen2.drawRect(10, 10, 140, 100, 15)
         images.print(screen2, "INVENTORY", 14, 14, 15)
 images.print(screen2, sprites.readDataString(item[selectedIndex], "name"), 70, 14, 1)
 screen2.fillRect(14, 24, 132, 1, 15)
         item_top = 28
-        for (let index = 0; index <= item.length - 1; index++) {
+        index = 0
+        while (index <= item.length - 1) {
             spriteutils.drawTransparentImage(item[index].image, screen2, 14 + index * 20, item_top)
+index += 1
         }
         spriteutils.drawTransparentImage(img`
-            ff.ff.ff.ff.ff.ff.ff
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            ff.ff.ff.ff.ff.ff.ff
+                ff.ff.ff.ff.ff.ff.ff
+                            f..................f
+                            ....................
+                            f..................f
+                            f..................f
+                            ....................
+                            f..................f
+                            f..................f
+                            ....................
+                            f..................f
+                            f..................f
+                            ....................
+                            f..................f
+                            f..................f
+                            ....................
+                            f..................f
+                            f..................f
+                            ....................
+                            f..................f
+                            ff.ff.ff.ff.ff.ff.ff
             `, screen2, 14 + selectedIndex * 20 - 2, item_top - 2)
     }
     if (keyPadVisible) {
@@ -391,10 +389,13 @@ let Bhandtoolon = false
 let Babypenguin: Sprite = null
 let keyPadVisible = false
 let inventoryVisible = false
-let BHandTool: Sprite = null
-let item: Sprite[] = []
-let selectedIndex = 0
 let item_top = 0
+let selectedIndex = 0
+let item : Sprite[] = []
+let BHandTool : Sprite = null
 intro()
 makePlayer()
 makingItems()
+game.onUpdateInterval(500, function () {
+	
+})

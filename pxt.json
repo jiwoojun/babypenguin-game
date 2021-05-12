@@ -1,5 +1,5 @@
 {
-    "name": "babypenguin game",
+    "name": "babypenguin_room_escape",
     "description": "",
     "dependencies": {
         "device": "*",
@@ -20,13 +20,14 @@
         "images.g.jres",
         "images.g.ts",
         "tilemap.g.jres",
-        "tilemap.g.ts"
+        "tilemap.g.ts",
+        "main.py"
     ],
     "testFiles": [
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.4.28",
+        "target": "1.4.41",
         "targetId": "arcade"
     },
     "supportedTargets": [

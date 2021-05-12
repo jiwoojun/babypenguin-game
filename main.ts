@@ -396,6 +396,3 @@ let BHandTool : Sprite = null
 intro()
 makePlayer()
 makingItems()
-game.onUpdateInterval(500, function () {
-	
-})

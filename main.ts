@@ -76,8 +76,35 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile5`)) {
         ghostAppearTime()
-    } else if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile33`)) {
-    	
+    } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile48`)) {
+        if (!(existItem)) {
+            music.magicWand.play()
+            makeItem(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . 5 . . 1 
+                . . . . . . . . . . . 5 5 . 1 1 
+                . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
+                d 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
+                . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
+                . . . . . . . . . . . 5 5 . 1 1 
+                . . . . . . . . . . . . 5 . . 1 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, "torch", 1, false)
+            story.spriteSayText(Babypenguin, "I found the torch! This may light up the dark room!")
+            tiles.replaceAllTiles(assets.tile`myTile48`, assets.tile`myTile1`)
+        }
+    }
+    if (sprites.readDataString(BHandTool, "name") == "torch") {
+        tiles.coverAllTiles(assets.tile`myTile41`, assets.tile`myTile45`)
+        tiles.coverAllTiles(assets.tile`myTile43`, assets.tile`myTile46`)
+        tiles.coverAllTiles(assets.tile`myTile44`, assets.tile`myTile47`)
     }
 })
 function makeItem (image2: Image, name: string, amount: number, dontAddToInventory: boolean) {
@@ -148,24 +175,6 @@ function makingItems () {
         . 2 . . . . . . . . . . . . . . 
         . 2 . . . . . . . . . . . . . . 
         `, "bow and arrow", 1, false)
-    makeItem(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . 5 . . 1 
-        . . . . . . . . . . . 5 5 . 1 1 
-        . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
-        d 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
-        . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
-        . . . . . . . . . . . 5 5 . 1 1 
-        . . . . . . . . . . . . 5 . . 1 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, "torch", 1, false)
 }
 function intro () {
     Bhandtoolon = false
@@ -218,6 +227,9 @@ function makePlayer () {
     tiles.setTilemap(tilemap`level1`)
     tiles.placeOnRandomTile(Babypenguin, assets.tile`myTile34`)
     tiles.coverAllTiles(assets.tile`myTile34`, assets.tile`myTile5`)
+    tiles.coverAllTiles(assets.tile`myTile41`, assets.tile`myTile39`)
+    tiles.coverAllTiles(assets.tile`myTile43`, assets.tile`myTile39`)
+    tiles.coverAllTiles(assets.tile`myTile44`, assets.tile`myTile39`)
     animation.runImageAnimation(
     Babypenguin,
     [img`
@@ -396,3 +408,6 @@ let BHandTool : Sprite = null
 intro()
 makePlayer()
 makingItems()
+game.onUpdateInterval(500, function () {
+	
+})

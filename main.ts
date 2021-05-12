@@ -18,11 +18,9 @@ namespace SpriteKind {
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventoryVisible) {
         BHandTool = item[selectedIndex]
-    } else {
-        if (!(keyPadVisible)) {
-            if (sprites.readDataString(BHandTool, "name") == "hint") {
-                story.spriteSayText(Babypenguin, "The secret pin number for the door is a177ji")
-            }
+    } else if (!(keyPadVisible)) {
+        if (sprites.readDataString(BHandTool, "name") == "hint") {
+            story.spriteSayText(Babypenguin, "The secret pin number for the door is a177ji")
         }
     }
 })
@@ -78,8 +76,35 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile5`)) {
         ghostAppearTime()
-    } else if (false) {
-    	
+    } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile50`)) {
+        if (!(existItem)) {
+            music.magicWand.play()
+            makeItem(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . 5 . . 1 
+                . . . . . . . . . . . 5 5 . 1 1 
+                . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
+                d 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
+                . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
+                . . . . . . . . . . . 5 5 . 1 1 
+                . . . . . . . . . . . . 5 . . 1 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, "torch", 1, false)
+            story.spriteSayText(Babypenguin, "I found the torch! This might light up the dark room!")
+            tiles.replaceAllTiles(assets.tile`myTile50`, assets.tile`myTile1`)
+        }
+    }
+    if (sprites.readDataString(BHandTool, "name") == "torch") {
+        tiles.coverAllTiles(assets.tile`myTile41`, assets.tile`myTile46`)
+        tiles.coverAllTiles(assets.tile`myTile44`, assets.tile`myTile47`)
+        tiles.coverAllTiles(assets.tile`myTile43`, assets.tile`myTile45`)
     }
 })
 function makeItem (image2: Image, name: string, amount: number, dontAddToInventory: boolean) {
@@ -150,24 +175,6 @@ function makingItems () {
         . 2 . . . . . . . . . . . . . . 
         . 2 . . . . . . . . . . . . . . 
         `, "bow and arrow", 1, false)
-    makeItem(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . 5 . . 1 
-        . . . . . . . . . . . 5 5 . 1 1 
-        . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
-        d 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
-        . 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1 
-        . . . . . . . . . . . 5 5 . 1 1 
-        . . . . . . . . . . . . 5 . . 1 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, "torch", 1, false)
 }
 function intro () {
     Bhandtoolon = false
@@ -220,6 +227,10 @@ function makePlayer () {
     tiles.setTilemap(tilemap`level1`)
     tiles.placeOnRandomTile(Babypenguin, assets.tile`myTile34`)
     tiles.coverAllTiles(assets.tile`myTile34`, assets.tile`myTile5`)
+    tiles.coverAllTiles(assets.tile`myTile41`, assets.tile`myTile39`)
+    tiles.coverAllTiles(assets.tile`myTile44`, assets.tile`myTile39`)
+    tiles.coverAllTiles(assets.tile`myTile43`, assets.tile`myTile39`)
+    tiles.coverAllTiles(assets.tile`myTile42`, assets.tile`myTile50`)
     animation.runImageAnimation(
     Babypenguin,
     [img`
@@ -264,8 +275,9 @@ function makePlayer () {
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     selectedIndex = Math.min(selectedIndex + 1, item.length - 1)
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
-	
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile44`, function (sprite, location) {
+    game.splash("Sorry. You fall into lava")
+    game.reset()
 })
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventoryVisible) {
@@ -275,37 +287,40 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 spriteutils.createRenderable(100, function (screen2) {
-    if (inventoryVisible) {
+    let index: number;
+if (inventoryVisible) {
         screen2.fillRect(10, 10, 140, 100, 11)
         screen2.drawRect(10, 10, 140, 100, 15)
         images.print(screen2, "INVENTORY", 14, 14, 15)
 images.print(screen2, sprites.readDataString(item[selectedIndex], "name"), 70, 14, 1)
 screen2.fillRect(14, 24, 132, 1, 15)
         item_top = 28
-        for (let index = 0; index <= item.length - 1; index++) {
+        index = 0
+        while (index <= item.length - 1) {
             spriteutils.drawTransparentImage(item[index].image, screen2, 14 + index * 20, item_top)
+index += 1
         }
         spriteutils.drawTransparentImage(img`
-            ff.ff.ff.ff.ff.ff.ff
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            f..................f
-            ....................
-            f..................f
-            ff.ff.ff.ff.ff.ff.ff
+                ff.ff.ff.ff.ff.ff.ff
+                            f..................f
+                            ....................
+                            f..................f
+                            f..................f
+                            ....................
+                            f..................f
+                            f..................f
+                            ....................
+                            f..................f
+                            f..................f
+                            ....................
+                            f..................f
+                            f..................f
+                            ....................
+                            f..................f
+                            f..................f
+                            ....................
+                            f..................f
+                            ff.ff.ff.ff.ff.ff.ff
             `, screen2, 14 + selectedIndex * 20 - 2, item_top - 2)
     }
     if (keyPadVisible) {
@@ -321,7 +336,6 @@ screen2.fillRect(14, 24, 132, 1, 15)
         }
         if (!(keyPadNumber == "a177ji")) {
             game.splash("nice try! so next time, try hard enough to unlock the door!")
-            game.over(false)
         }
     }
 })
@@ -382,6 +396,10 @@ function openKeyPad () {
     controller.moveSprite(Babypenguin, 0, 0)
     selectedKey = 0
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile41`, function (sprite, location) {
+    game.splash("Sorry. You fall into lava")
+    game.reset()
+})
 let selectedKey = 0
 let ghost: Sprite = null
 let keyPadNumber = ""
@@ -391,10 +409,11 @@ let Bhandtoolon = false
 let Babypenguin: Sprite = null
 let keyPadVisible = false
 let inventoryVisible = false
-let BHandTool: Sprite = null
-let item: Sprite[] = []
-let selectedIndex = 0
 let item_top = 0
+let selectedIndex = 0
+let item : Sprite[] = []
+let BHandTool : Sprite = null
 intro()
 makePlayer()
 makingItems()
+info.startCountdown(300)

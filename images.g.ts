@@ -3,7 +3,7 @@ namespace myImages {
 
     helpers._registerFactory("image", function(name: string) {
         switch(helpers.stringTrim(name)) {
-            case "image9":return img`
+            case "image15":return img`
 111.........111..1...1.1111...11.........11................1
 1..1........1..1.1...1.1...1.1..1.......1..1...............1
 111...111...111..1...1.1...1.1..1.......1..1.......1.......1
@@ -13,7 +13,7 @@ namespace myImages {
 1..1..111.1.1..1.....1.1......111.1...1....1..111..1.1...1..
 111.........111..1111..1..........1...1.111..1.....1.1...1.1
 `;
-            case "image10":return img`
+            case "image16":return img`
 . . . . . 9 9 9 1 9 9 . . . . . 
 . . . . 9 9 9 9 1 9 9 9 . . . . 
 . . . 1 9 9 9 9 1 9 9 9 1 . . . 
@@ -31,7 +31,7 @@ namespace myImages {
 . . . . . . 9 9 1 9 . . . . . . 
 . . . . . . . 9 1 . . . . . . . 
 `;
-            case "image11":return img`
+            case "image17":return img`
 . . . . . . . . . . . . . . . . 
 . . . . d d f f f f d d . . . . 
 . . . d d d d d d d d d d . . . 
@@ -49,7 +49,7 @@ namespace myImages {
 . . . . f f f . . f f f . . . . 
 . . . . f . f . . f . f . . . . 
 `;
-            case "image12":return img`
+            case "image18":return img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . 5 5 5 5 5 5 1 . . . . . 
@@ -67,7 +67,7 @@ namespace myImages {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `;
-            case "image13":return img`
+            case "image19":return img`
 . 9 . . . . . . . . . . . . . . 
 6 9 9 . . . . . . . . . . . . . 
 6 9 9 . e e e . . . . . . . . . 
@@ -85,7 +85,7 @@ namespace myImages {
 . 2 . . . . . . . . . . . . . . 
 . 2 . . . . . . . . . . . . . . 
 `;
-            case "image14":return img`
+            case "image20":return img`
 . . . . . . . . . . . . . . . . 
 . . . 1 1 1 1 1 1 1 1 1 1 . . . 
 . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
@@ -103,7 +103,7 @@ namespace myImages {
 . 1 . 1 . 1 . 1 . 1 . 1 . . 1 . 
 . 1 . 1 . 1 . 1 . 1 . 1 . . 1 . 
 `;
-            case "image15":return img`
+            case "image21":return img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -127,7 +127,42 @@ d 2 2 2 2 2 2 2 2 2 2 5 5 1 1 1
 
     helpers._registerFactory("animation", function(name: string) {
         switch(helpers.stringTrim(name)) {
-            case "anim2":return [img`
+            case "anim1":return [img`
+. . . . . . . . . . . . . . . . 
+. . . . d d f f f f d d . . . . 
+. . . d d d d d d d d d d . . . 
+. . . d d 1 1 1 d 1 1 1 d . . . 
+. . . d d 1 f f 1 f f 1 d . . . 
+. . . d d 1 1 1 1 1 1 1 d . . . 
+. . . f d 1 1 f f f 1 1 f . . . 
+. . . f d d 1 1 f 1 1 d f . . . 
+. . . f d d d d d d d d f . . . 
+. . . f d 1 1 1 1 1 1 d f . . . 
+. . . d d 1 f 1 f f 1 d d . . . 
+. . . d d 1 1 1 1 1 1 d d . . . 
+. . . d d 1 f f 1 f 1 d d . . . 
+. . . . d d 1 1 1 1 d d . . . . 
+. . . . f f f . . f f f . . . . 
+. . . . . . f . . f . f . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . . d d f f f f d d . . . . 
+. . . d d d d d d d d d d . . . 
+. . . d d 1 1 1 d 1 1 1 d . . . 
+. . . d d 1 f f 1 f f 1 d . . . 
+. . . d d 1 1 1 1 1 1 1 d . . . 
+. . . f d 1 1 f f f 1 1 f . . . 
+. . . f d d 1 1 f 1 1 d f . . . 
+. . . f d d d d d d d d f . . . 
+. . . f d 1 1 1 1 1 1 d f . . . 
+. . . d d 1 f 1 f f 1 d d . . . 
+. . . d d 1 1 1 1 1 1 d d . . . 
+. . . d d 1 f f 1 f 1 d d . . . 
+. . . . d d 1 1 1 1 d d . . . . 
+. . . . f f f . . f f f . . . . 
+. . . . f . f . . f . . . . . . 
+`];
+            case "anim3":return [img`
 . . . . . . . . . . . . . . . . 
 . . . . d d f f f f d d . . . . 
 . . . d d d d d d d d d d . . . 

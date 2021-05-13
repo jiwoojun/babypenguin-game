@@ -100,11 +100,59 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             story.spriteSayText(Babypenguin, "I found the torch! This may light up the dark room!")
             tiles.replaceAllTiles(assets.tile`myTile48`, assets.tile`myTile1`)
         }
+    } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile53`)) {
+        if (!(existItem)) {
+            music.magicWand.play()
+            makeItem(img`
+                . . . . . 9 9 9 1 9 9 . . . . . 
+                . . . . 9 9 9 9 1 9 9 9 . . . . 
+                . . . 1 9 9 9 9 1 9 9 9 1 . . . 
+                . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
+                . 1 1 1 1 9 9 9 1 9 9 9 1 1 1 . 
+                . 9 9 1 1 9 9 9 1 9 9 1 1 9 9 . 
+                . 9 9 1 9 1 9 9 1 1 1 9 1 9 9 . 
+                . 9 9 1 9 9 1 1 1 9 9 9 1 9 9 . 
+                . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
+                . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
+                . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
+                . . . 1 9 9 9 9 1 9 9 9 1 . . . 
+                . . . . 9 9 9 9 1 9 9 9 . . . . 
+                . . . . . 9 9 9 1 9 9 . . . . . 
+                . . . . . . 9 9 1 9 . . . . . . 
+                . . . . . . . 9 1 . . . . . . . 
+                `, "diamond", 1, false)
+            story.spriteSayText(Babypenguin, "I got the diamond! I can be a ghost!")
+            tiles.replaceAllTiles(assets.tile`myTile53`, assets.tile`myTile`)
+        }
+    } else {
+    	
     }
     if (sprites.readDataString(BHandTool, "name") == "torch") {
         tiles.coverAllTiles(assets.tile`myTile41`, assets.tile`myTile45`)
         tiles.coverAllTiles(assets.tile`myTile43`, assets.tile`myTile46`)
         tiles.coverAllTiles(assets.tile`myTile44`, assets.tile`myTile47`)
+    } else if (sprites.readDataString(BHandTool, "name") == "bow and arrow") {
+        projectile = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . 6 6 6 . 
+            2 2 2 2 2 2 2 2 2 2 2 2 6 9 9 9 
+            . . . . . . . . . . . . 9 9 9 . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, Babypenguin, 50, 0)
+        projectile.setFlag(SpriteFlag.GhostThroughWalls, true)
+    } else {
+    	
     }
 })
 function makeItem (image2: Image, name: string, amount: number, dontAddToInventory: boolean) {
@@ -121,24 +169,6 @@ function makeItem (image2: Image, name: string, amount: number, dontAddToInvento
 function makingItems () {
     item = []
     existItem = false
-    makeItem(img`
-        . . . . . 9 9 9 1 9 9 . . . . . 
-        . . . . 9 9 9 9 1 9 9 9 . . . . 
-        . . . 1 9 9 9 9 1 9 9 9 1 . . . 
-        . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
-        . 1 1 1 1 9 9 9 1 9 9 9 1 1 1 . 
-        . 9 9 1 1 9 9 9 1 9 9 1 1 9 9 . 
-        . 9 9 1 9 1 9 9 1 1 1 9 1 9 9 . 
-        . 9 9 1 9 9 1 1 1 9 9 9 1 9 9 . 
-        . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
-        . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
-        . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
-        . . . 1 9 9 9 9 1 9 9 9 1 . . . 
-        . . . . 9 9 9 9 1 9 9 9 . . . . 
-        . . . . . 9 9 9 1 9 9 . . . . . 
-        . . . . . . 9 9 1 9 . . . . . . 
-        . . . . . . . 9 1 . . . . . . . 
-        `, "diamond", 1, false)
     makeItem(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -274,6 +304,14 @@ function makePlayer () {
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     selectedIndex = Math.min(selectedIndex + 1, item.length - 1)
 })
+scene.onOverlapTile(SpriteKind.Projectile, assets.tile`myTile27`, function (sprite, location) {
+    tiles.replaceAllTiles(assets.tile`myTile31`, assets.tile`myTile53`)
+    tiles.replaceAllTiles(assets.tile`myTile27`, assets.tile`myTile52`)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile43`, function (sprite, location) {
+    game.splash("sorry. you fall in the lava.")
+    game.reset()
+})
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventoryVisible) {
         closeInventory()
@@ -392,10 +430,15 @@ function openKeyPad () {
     controller.moveSprite(Babypenguin, 0, 0)
     selectedKey = 0
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile41`, function (sprite, location) {
+    game.splash("sorry. you fall in the lava.")
+    game.reset()
+})
 let selectedKey = 0
 let ghost: Sprite = null
 let keyPadNumber = ""
 let newItem: Sprite = null
+let projectile: Sprite = null
 let existItem = false
 let Bhandtoolon = false
 let Babypenguin: Sprite = null

@@ -124,6 +124,29 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             story.spriteSayText(Babypenguin, "I got the diamond! I can be a ghost!")
             tiles.replaceAllTiles(assets.tile`myTile53`, assets.tile`myTile`)
         }
+    } else if (Babypenguin.tileKindAt(TileDirection.Bottom, assets.tile`myTile40`)) {
+        if (!(existItem)) {
+            music.magicWand.play()
+            makeItem(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . 5 5 5 5 5 5 1 . . . . . 
+                . . . 5 5 5 5 f 5 5 5 1 . . . . 
+                . . 5 5 5 5 f f f 5 5 5 1 . . . 
+                . . 5 5 5 f 5 f 5 5 5 5 1 . . . 
+                . . 5 5 5 5 f f 5 5 5 5 1 . . . 
+                . . 5 5 5 5 5 f f 5 5 5 1 . . . 
+                . . 5 5 5 f f f 5 5 5 5 1 . . . 
+                . . 5 5 5 5 5 f 5 5 5 5 1 . . . 
+                . . 5 5 5 5 5 5 5 5 5 5 1 . . . 
+                . . . 5 5 5 5 5 5 5 5 1 . . . . 
+                . . . . 5 5 5 5 5 5 5 . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, "coin", 1, false)
+            story.spriteSayText(Babypenguin, "yay! a coin! I must give it to the ghost!")
+        }
     } else {
     	
     }
@@ -169,24 +192,6 @@ function makeItem (image2: Image, name: string, amount: number, dontAddToInvento
 function makingItems () {
     item = []
     existItem = false
-    makeItem(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . 5 5 5 5 5 5 1 . . . . . 
-        . . . 5 5 5 5 f 5 5 5 1 . . . . 
-        . . 5 5 5 5 f f f 5 5 5 1 . . . 
-        . . 5 5 5 f 5 f 5 5 5 5 1 . . . 
-        . . 5 5 5 5 f f 5 5 5 5 1 . . . 
-        . . 5 5 5 5 5 f f 5 5 5 1 . . . 
-        . . 5 5 5 f f f 5 5 5 5 1 . . . 
-        . . 5 5 5 5 5 f 5 5 5 5 1 . . . 
-        . . 5 5 5 5 5 5 5 5 5 5 1 . . . 
-        . . . 5 5 5 5 5 5 5 5 1 . . . . 
-        . . . . 5 5 5 5 5 5 5 . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, "coin", 1, false)
     makeItem(img`
         . 9 . . . . . . . . . . . . . . 
         6 9 9 . . . . . . . . . . . . . 

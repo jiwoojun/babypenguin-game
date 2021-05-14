@@ -77,7 +77,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         } else {
             openKeyPad()
         }
-    } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile5`)) {
+    } else if (Babypenguin.tileKindAt(TileDirection.Top, assets.tile`myTile50`)) {
         ghostAppearTime()
     } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile48`)) {
         if (!(existItem)) {

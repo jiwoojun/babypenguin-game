@@ -2,6 +2,9 @@ namespace SpriteKind {
     export const tools = SpriteKind.create()
     export const NPC = SpriteKind.create()
 }
+/**
+ * I did not use storyboard:(
+ */
 sprites.onOverlap(SpriteKind.Player, SpriteKind.NPC, function (sprite, otherSprite) {
     _2ndghostAppearTime()
 })
@@ -179,6 +182,44 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         projectile.setFlag(SpriteFlag.GhostThroughWalls, true)
     } else if (sprites.readDataString(BHandTool, "name") == "diamond") {
         Babypenguin.setFlag(SpriteFlag.GhostThroughWalls, true)
+        Babypenguin.setImage(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . d d b b b b d d . . . . 
+            . . . d d d d d d d d d d . . . 
+            . . . d d 1 1 1 d 1 1 1 d . . . 
+            . . . d d 1 b b 1 b b 1 d . . . 
+            . . . d d 1 1 1 1 1 1 1 d . . . 
+            . . . b d 1 1 b b b 1 1 b . . . 
+            . . . b d d 1 1 b 1 1 d b . . . 
+            . . . b d d d d d d d d b . . . 
+            . . . b d 1 1 1 1 1 1 d b . . . 
+            . . . d d 1 b 1 b b 1 d d . . . 
+            . . . d d 1 1 1 1 1 1 d d . . . 
+            . . . d d 1 b b 1 b 1 d d . . . 
+            . . . . d d 1 1 1 1 d d . . . . 
+            . . . . b b b . . b b b . . . . 
+            . . . . b . b . . b . b . . . . 
+            `)
+        pause(2000)
+        Babypenguin.setFlag(SpriteFlag.GhostThroughWalls, false)
+        Babypenguin.setImage(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . d d f f f f d d . . . . 
+            . . . d d d d d d d d d d . . . 
+            . . . d d 1 1 1 d 1 1 1 d . . . 
+            . . . d d 1 f f 1 f f 1 d . . . 
+            . . . d d 1 1 1 1 1 1 1 d . . . 
+            . . . f d 1 1 f f f 1 1 f . . . 
+            . . . f d d 1 1 f 1 1 d f . . . 
+            . . . f d d d d d d d d f . . . 
+            . . . f d 1 1 1 1 1 1 d f . . . 
+            . . . d d 1 f 1 f f 1 d d . . . 
+            . . . d d 1 1 1 1 1 1 d d . . . 
+            . . . d d 1 f f 1 f 1 d d . . . 
+            . . . . d d 1 1 1 1 d d . . . . 
+            . . . . f f f . . f f f . . . . 
+            . . . . f . f . . f . f . . . . 
+            `)
     } else {
     	
     }
@@ -197,6 +238,24 @@ function makeItem (image2: Image, name: string, amount: number, dontAddToInvento
 function makingItems () {
     item = []
     existItem = false
+    makeItem(img`
+        . . . . . 9 9 9 1 9 9 . . . . . 
+        . . . . 9 9 9 9 1 9 9 9 . . . . 
+        . . . 1 9 9 9 9 1 9 9 9 1 . . . 
+        . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
+        . 1 1 1 1 9 9 9 1 9 9 9 1 1 1 . 
+        . 9 9 1 1 9 9 9 1 9 9 1 1 9 9 . 
+        . 9 9 1 9 1 9 9 1 1 1 9 1 9 9 . 
+        . 9 9 1 9 9 1 1 1 9 9 9 1 9 9 . 
+        . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
+        . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
+        . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
+        . . . 1 9 9 9 9 1 9 9 9 1 . . . 
+        . . . . 9 9 9 9 1 9 9 9 . . . . 
+        . . . . . 9 9 9 1 9 9 . . . . . 
+        . . . . . . 9 9 1 9 . . . . . . 
+        . . . . . . . 9 1 . . . . . . . 
+        `, "diamond", 1, false)
 }
 function intro () {
     Bhandtoolon = false

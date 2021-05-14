@@ -2,6 +2,9 @@ namespace SpriteKind {
     export const tools = SpriteKind.create()
     export const NPC = SpriteKind.create()
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.NPC, function (sprite, otherSprite) {
+    _2ndghostAppearTime()
+})
 // items:
 // 
 // key,
@@ -147,7 +150,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
                 `, "coin", 1, false)
             story.spriteSayText(Babypenguin, "yay! a coin! I must give it to the ghost!")
         }
-    } else {
+    } else if (false) {
     	
     }
     if (sprites.readDataString(BHandTool, "name") == "torch") {
@@ -174,6 +177,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . . . . . . . . . . . . 
             `, Babypenguin, 50, 0)
         projectile.setFlag(SpriteFlag.GhostThroughWalls, true)
+    } else if (sprites.readDataString(BHandTool, "name") == "diamond") {
+        Babypenguin.setFlag(SpriteFlag.GhostThroughWalls, true)
     } else {
     	
     }
@@ -192,24 +197,6 @@ function makeItem (image2: Image, name: string, amount: number, dontAddToInvento
 function makingItems () {
     item = []
     existItem = false
-    makeItem(img`
-        . 9 . . . . . . . . . . . . . . 
-        6 9 9 . . . . . . . . . . . . . 
-        6 9 9 . e e e . . . . . . . . . 
-        6 6 9 . f . e e . . . . . . . . 
-        . 2 . . f . . e e e . . . . . . 
-        . 2 . . f . . . . e e . . . . . 
-        . 2 . . f . . . . . e e . . . . 
-        . 2 . . f . . . . . . e . . . . 
-        . 2 . . f . . . . . . e . . . . 
-        . 2 . . f . . . . . e e . . . . 
-        . 2 . . f . . . . e e . . . . . 
-        . 2 . . f . . e e e . . . . . . 
-        . 2 . . f . e e . . . . . . . . 
-        . 2 . . e e e . . . . . . . . . 
-        . 2 . . . . . . . . . . . . . . 
-        . 2 . . . . . . . . . . . . . . 
-        `, "bow and arrow", 1, false)
 }
 function intro () {
     Bhandtoolon = false
@@ -317,6 +304,45 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile43`, function (sprite, 
     game.splash("sorry. you fall in the lava.")
     game.reset()
 })
+function _2ndghostAppearTime () {
+    for (let index2 = 0; index2 < 1; index2++) {
+        if (sprites.readDataString(BHandTool, "name") == "coin") {
+            color.startFade(color.originalPalette, color.GrayScale)
+            pause(1000)
+            story.queueStoryPart(function () {
+                story.spriteSayText(Babypenguin, "I got your coin.")
+            })
+            story.queueStoryPart(function () {
+                story.spriteSayText(ghost, "thank you.")
+            })
+            story.queueStoryPart(function () {
+                story.spriteSayText(ghost, "here is your bow and arrow.")
+            })
+            if (!(existItem)) {
+                music.magicWand.play()
+                makeItem(img`
+                    . 9 . . . . . . . . . . . . . . 
+                    6 9 9 . . . . . . . . . . . . . 
+                    6 9 9 . e e e . . . . . . . . . 
+                    6 6 9 . f . e e . . . . . . . . 
+                    . 2 . . f . . e e e . . . . . . 
+                    . 2 . . f . . . . e e . . . . . 
+                    . 2 . . f . . . . . e e . . . . 
+                    . 2 . . f . . . . . . e . . . . 
+                    . 2 . . f . . . . . . e . . . . 
+                    . 2 . . f . . . . . e e . . . . 
+                    . 2 . . f . . . . e e . . . . . 
+                    . 2 . . f . . e e e . . . . . . 
+                    . 2 . . f . e e . . . . . . . . 
+                    . 2 . . e e e . . . . . . . . . 
+                    . 2 . . . . . . . . . . . . . . 
+                    . 2 . . . . . . . . . . . . . . 
+                    `, "bow and arrow", 1, false)
+            }
+            color.startFade(color.GrayScale, color.originalPalette)
+        }
+    }
+}
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventoryVisible) {
         closeInventory()
@@ -440,8 +466,8 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile41`, function (sprite, 
     game.reset()
 })
 let selectedKey = 0
-let ghost: Sprite = null
 let keyPadNumber = ""
+let ghost: Sprite = null
 let newItem: Sprite = null
 let projectile: Sprite = null
 let existItem = false

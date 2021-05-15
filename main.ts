@@ -2,9 +2,6 @@ namespace SpriteKind {
     export const tools = SpriteKind.create()
     export const NPC = SpriteKind.create()
 }
-/**
- * I did not use storyboard:(
- */
 sprites.onOverlap(SpriteKind.Player, SpriteKind.NPC, function (sprite, otherSprite) {
     _2ndghostAppearTime()
 })
@@ -44,8 +41,8 @@ function closeInventory () {
     controller.moveSprite(Babypenguin)
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile32`)) {
-        tiles.setTileAt(tiles.getTileLocation(1, 14), assets.tile`myTile28`)
+    if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile57`)) {
+        tiles.replaceAllTiles(assets.tile`myTile57`, assets.tile`myTile28`)
     } else if (Babypenguin.tileKindAt(TileDirection.Left, assets.tile`myTile28`)) {
         story.spriteSayText(Babypenguin, "\"Key is hidden under a secret tile 5 steps down and 5 step right from washbasin\"")
     } else if (Babypenguin.tileKindAt(TileDirection.Center, assets.tile`myTile26`)) {
@@ -238,24 +235,6 @@ function makeItem (image2: Image, name: string, amount: number, dontAddToInvento
 function makingItems () {
     item = []
     existItem = false
-    makeItem(img`
-        . . . . . 9 9 9 1 9 9 . . . . . 
-        . . . . 9 9 9 9 1 9 9 9 . . . . 
-        . . . 1 9 9 9 9 1 9 9 9 1 . . . 
-        . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
-        . 1 1 1 1 9 9 9 1 9 9 9 1 1 1 . 
-        . 9 9 1 1 9 9 9 1 9 9 1 1 9 9 . 
-        . 9 9 1 9 1 9 9 1 1 1 9 1 9 9 . 
-        . 9 9 1 9 9 1 1 1 9 9 9 1 9 9 . 
-        . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
-        . 9 9 1 9 9 9 9 1 9 9 9 1 9 9 . 
-        . . 9 1 9 9 9 9 1 9 9 9 1 9 . . 
-        . . . 1 9 9 9 9 1 9 9 9 1 . . . 
-        . . . . 9 9 9 9 1 9 9 9 . . . . 
-        . . . . . 9 9 9 1 9 9 . . . . . 
-        . . . . . . 9 9 1 9 . . . . . . 
-        . . . . . . . 9 1 . . . . . . . 
-        `, "diamond", 1, false)
 }
 function intro () {
     Bhandtoolon = false
@@ -275,6 +254,9 @@ function intro () {
     game.splash("SOMEBODY HELP ME!!!!")
     game.splash("I must do this!")
 }
+/**
+ * I did not use storyboard:(
+ */
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     selectedIndex = Math.max(selectedIndex - 1, 0)
 })

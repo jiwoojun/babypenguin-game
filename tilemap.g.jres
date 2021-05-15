@@ -370,6 +370,12 @@
         "tilemapTile": true,
         "displayName": "myTile59"
     },
+    "tile62": {
+        "data": "hwQQABAAAADb3c1ERERERN3bzVRVVVVFvb3NVFVVVUXd3c1UVVVVRd3dzVRVVVVF293NVFVVVUXdvc1UVVVVRd3dzZlZVVVF3d3NyVlVVUXd282ZWVVVRd3dzVRVVVVF3b3NVFVVVUXb3c1UVVVVRd3dzVRVVVVFvd3LVFVVVUXb3c1ERERERA==",
+        "mimeType": "image/x-mkcd-f4",
+        "tilemapTile": true,
+        "displayName": "myTile60"
+    },
     "level2": {
         "id": "level2",
         "mimeType": "application/mkcd-tilemap",
@@ -478,7 +484,8 @@
             "myTiles.tile57",
             "myTiles.tile59",
             "myTiles.tile60",
-            "myTiles.tile61"
+            "myTiles.tile61",
+            "myTiles.tile62"
         ],
         "displayName": "level1"
     },

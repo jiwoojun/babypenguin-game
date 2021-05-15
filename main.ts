@@ -128,7 +128,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             tiles.replaceAllTiles(assets.tile`myTile53`, assets.tile`myTile`)
         }
     } else if (Babypenguin.tileKindAt(TileDirection.Bottom, assets.tile`myTile40`)) {
-        if (!(existItem)) {
+        if (!(exist_coin)) {
             music.magicWand.play()
             makeItem(img`
                 . . . . . . . . . . . . . . . . 
@@ -149,6 +149,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
                 . . . . . . . . . . . . . . . . 
                 `, "coin", 1, false)
             story.spriteSayText(Babypenguin, "yay! a coin! I must give it to the ghost!")
+            tiles.replaceAllTiles(assets.tile`myTile40`, assets.tile`myTile60`)
+            exist_coin = true
         }
     } else if (false) {
     	
@@ -235,6 +237,8 @@ function makeItem (image2: Image, name: string, amount: number, dontAddToInvento
 function makingItems () {
     item = []
     existItem = false
+    exist_bowarrow = false
+    exist_coin = false
 }
 function intro () {
     Bhandtoolon = false
@@ -346,10 +350,8 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile43`, function (sprite, 
     game.reset()
 })
 function _2ndghostAppearTime () {
-    for (let index2 = 0; index2 < 1; index2++) {
-        if (sprites.readDataString(BHandTool, "name") == "coin") {
-            color.startFade(color.originalPalette, color.GrayScale)
-            pause(1000)
+    if (sprites.readDataString(BHandTool, "name") == "coin") {
+        if (!(exist_bowarrow)) {
             story.queueStoryPart(function () {
                 story.spriteSayText(Babypenguin, "I got your coin.")
             })
@@ -359,28 +361,26 @@ function _2ndghostAppearTime () {
             story.queueStoryPart(function () {
                 story.spriteSayText(ghost, "here is your bow and arrow.")
             })
-            if (!(existItem)) {
-                music.magicWand.play()
-                makeItem(img`
-                    . 9 . . . . . . . . . . . . . . 
-                    6 9 9 . . . . . . . . . . . . . 
-                    6 9 9 . e e e . . . . . . . . . 
-                    6 6 9 . f . e e . . . . . . . . 
-                    . 2 . . f . . e e e . . . . . . 
-                    . 2 . . f . . . . e e . . . . . 
-                    . 2 . . f . . . . . e e . . . . 
-                    . 2 . . f . . . . . . e . . . . 
-                    . 2 . . f . . . . . . e . . . . 
-                    . 2 . . f . . . . . e e . . . . 
-                    . 2 . . f . . . . e e . . . . . 
-                    . 2 . . f . . e e e . . . . . . 
-                    . 2 . . f . e e . . . . . . . . 
-                    . 2 . . e e e . . . . . . . . . 
-                    . 2 . . . . . . . . . . . . . . 
-                    . 2 . . . . . . . . . . . . . . 
-                    `, "bow and arrow", 1, false)
-            }
-            color.startFade(color.GrayScale, color.originalPalette)
+            music.magicWand.play()
+            makeItem(img`
+                . 9 . . . . . . . . . . . . . . 
+                6 9 9 . . . . . . . . . . . . . 
+                6 9 9 . e e e . . . . . . . . . 
+                6 6 9 . f . e e . . . . . . . . 
+                . 2 . . f . . e e e . . . . . . 
+                . 2 . . f . . . . e e . . . . . 
+                . 2 . . f . . . . . e e . . . . 
+                . 2 . . f . . . . . . e . . . . 
+                . 2 . . f . . . . . . e . . . . 
+                . 2 . . f . . . . . e e . . . . 
+                . 2 . . f . . . . e e . . . . . 
+                . 2 . . f . . e e e . . . . . . 
+                . 2 . . f . e e . . . . . . . . 
+                . 2 . . e e e . . . . . . . . . 
+                . 2 . . . . . . . . . . . . . . 
+                . 2 . . . . . . . . . . . . . . 
+                `, "bow and arrow", 1, false)
+            exist_bowarrow = true
         }
     }
 }
@@ -470,27 +470,31 @@ function ghostAppearTime () {
         . 1 . 1 . 1 . 1 . 1 . 1 . . 1 . 
         `, SpriteKind.NPC)
     tiles.placeOnRandomTile(ghost, assets.tile`myTile26`)
-    story.queueStoryPart(function () {
-        story.spriteSayText(ghost, "I am your NPC.")
-    })
-    story.queueStoryPart(function () {
-        story.spriteSayText(ghost, "I only appear at night.")
-    })
-    story.queueStoryPart(function () {
-        story.spriteSayText(ghost, "Why I'm here is...")
-    })
-    story.queueStoryPart(function () {
-        story.spriteSayText(ghost, "when you give me a coin,")
-    })
-    story.queueStoryPart(function () {
-        story.spriteSayText(ghost, "then I will give you a item")
-    })
-    story.queueStoryPart(function () {
-        story.spriteSayText(ghost, "which is a bow and arrow.")
-    })
+    if (!(exist_coin)) {
+        story.queueStoryPart(function () {
+            story.spriteSayText(ghost, "I am your NPC.")
+        })
+        story.queueStoryPart(function () {
+            story.spriteSayText(ghost, "I only appear at night.")
+        })
+        story.queueStoryPart(function () {
+            story.spriteSayText(ghost, "Why I'm here is...")
+        })
+        story.queueStoryPart(function () {
+            story.spriteSayText(ghost, "when you give me a coin,")
+        })
+        story.queueStoryPart(function () {
+            story.spriteSayText(ghost, "then I will give you a item")
+        })
+        story.queueStoryPart(function () {
+            story.spriteSayText(ghost, "which is a bow and arrow.")
+        })
+    } else {
+        story.spriteSayText(ghost, "Give me that coin!")
+    }
     pause(20000)
-    color.startFade(color.GrayScale, color.originalPalette)
     ghost.destroy()
+    color.startFade(color.GrayScale, color.originalPalette)
 }
 function openInventory () {
     inventoryVisible = true
@@ -509,8 +513,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile41`, function (sprite, 
 let selectedKey = 0
 let keyPadNumber = ""
 let ghost: Sprite = null
+let exist_bowarrow = false
 let newItem: Sprite = null
 let projectile: Sprite = null
+let exist_coin = false
 let existItem = false
 let Bhandtoolon = false
 let Babypenguin: Sprite = null

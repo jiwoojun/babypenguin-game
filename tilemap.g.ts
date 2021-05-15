@@ -124,6 +124,8 @@ namespace myTiles {
     export const tile35 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
     export const tile61 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile62 = image.ofBuffer(hex``);
 
     helpers._registerFactory("tilemap", function(name: string) {
         switch(helpers.stringTrim(name)) {
@@ -248,7 +250,7 @@ namespace myTiles {
 .222....2.2222....2...
 .222....2....2..222...
 .222....2....2..222...
-`, [myTiles.transparency16,myTiles.tile1,myTiles.tile4,myTiles.tile5,myTiles.tile2,myTiles.tile3,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile12,myTiles.tile13,myTiles.tile14,myTiles.tile15,myTiles.tile16,myTiles.tile17,myTiles.tile18,myTiles.tile19,myTiles.tile21,myTiles.tile22,myTiles.tile23,myTiles.tile24,myTiles.tile25,myTiles.tile28,myTiles.tile32,myTiles.tile35,myTiles.tile36,myTiles.tile42,myTiles.tile43,myTiles.tile45,myTiles.tile46,myTiles.tile50,myTiles.tile51,myTiles.tile54,myTiles.tile29,myTiles.tile33,myTiles.tile41,sprites.builtin.brick,myTiles.tile52,myTiles.tile56,myTiles.tile57,myTiles.tile59,myTiles.tile60,myTiles.tile61], TileScale.Sixteen);
+`, [myTiles.transparency16,myTiles.tile1,myTiles.tile4,myTiles.tile5,myTiles.tile2,myTiles.tile3,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile12,myTiles.tile13,myTiles.tile14,myTiles.tile15,myTiles.tile16,myTiles.tile17,myTiles.tile18,myTiles.tile19,myTiles.tile21,myTiles.tile22,myTiles.tile23,myTiles.tile24,myTiles.tile25,myTiles.tile28,myTiles.tile32,myTiles.tile35,myTiles.tile36,myTiles.tile42,myTiles.tile43,myTiles.tile45,myTiles.tile46,myTiles.tile50,myTiles.tile51,myTiles.tile54,myTiles.tile29,myTiles.tile33,myTiles.tile41,sprites.builtin.brick,myTiles.tile52,myTiles.tile56,myTiles.tile57,myTiles.tile59,myTiles.tile60,myTiles.tile61,myTiles.tile62], TileScale.Sixteen);
         }
         return null;
     })
@@ -378,6 +380,8 @@ namespace myTiles {
             case "tile35":return tile35;
             case "myTile59":
             case "tile61":return tile61;
+            case "myTile60":
+            case "tile62":return tile62;
         }
         return null;
     })

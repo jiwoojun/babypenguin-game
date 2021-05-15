@@ -23,7 +23,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         BHandTool = item[selectedIndex]
     } else if (!(keyPadVisible)) {
         if (sprites.readDataString(BHandTool, "name") == "hint") {
-            story.spriteSayText(Babypenguin, "The secret pin number for the door is a177ji")
+            story.spriteSayText(Babypenguin, "The secret pin number for the door is 123")
         }
     }
 })
@@ -429,19 +429,13 @@ index += 1
             `, screen2, 14 + selectedIndex * 20 - 2, item_top - 2)
     }
     if (keyPadVisible) {
-        keyPadNumber = game.askForString("crack this code...it might be hard!")
-        if (keyPadVisible) {
-            closeKeyPad()
-        } else {
-            openKeyPad()
-        }
-        if (keyPadNumber == "a177ji") {
+        keyPadNumber = game.askForNumber("crack this code...it might be hard!")
+        if (keyPadNumber == 123) {
             game.splash("you did it! you unlocked the door! congratulations!")
             game.over(true)
-        }
-        if (!(keyPadNumber == "a177ji")) {
+        } else {
             game.splash("nice try! so next time, try hard enough to unlock the door!")
-            game.over(false)
+            game.reset()
         }
     }
 })
@@ -511,7 +505,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile41`, function (sprite, 
     game.reset()
 })
 let selectedKey = 0
-let keyPadNumber = ""
+let keyPadNumber = 0
 let ghost: Sprite = null
 let exist_bowarrow = false
 let newItem: Sprite = null
